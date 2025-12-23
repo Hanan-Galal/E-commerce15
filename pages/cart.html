@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <script src="js/data.js " defer></script>
+       <script type="module" src="../js/cart.js" defer></script>
+  
+
   </head>
+
   <body>
     <header class="  bg-neutral-100 ">
       
@@ -13,7 +16,7 @@
          <!--start-navbar-->
         <nav class="flex items-center justify-between p-3 ">
           <img
-            src="images/logo-skincare.jpg"
+            src="../images/logo-skincare.jpg"
             alt="logo-skincare"
             class="h-25 rounded-full"
           />
@@ -22,7 +25,7 @@
           >
             <li>
               <a
-                href="#"
+                href="index.html"
                 class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md"
                 >Home</a
               >
@@ -88,57 +91,22 @@
           </ul>
         </nav>
         <!--end navbar-->
-        <!-- start Carousel-->
-         <div class="  relative p-4 h-[700px] overflow-hidden rounded-xl shadow-lg  ">
-         <div  id="slider" class=" flex  transition-transform duration-500 ease-in-out ">
-            <img src="images/header2.png.jpg" alt="carousel1" class="w-full h-[700px]  flex-shrink-0  object-cover "/>
-            <img src="images/header3.png.jpg" alt="carousel1" class="w-full h-[700px]  flex-shrink-0 object-cover" />
-            <img src="images/header4.png.jpg" alt="carousel1" class="w-full h-[700px]  flex-shrink-0 object-cover" />
-            <img src="images/header5.png.jpg" alt="carousel1" class="w-full h-[700px]  flex-shrink-0 object-cover" />
-
-         </div>
-        <button class="absolute top-1/2 left-8 transform -translate-y-1/2 bg-white   text-gray-800 font-bold py-2 px-4 rounded-full" onclick="prevSlide()">
-            &#10094;
-         </button>
-         <button class="absolute top-1/2 right-8 transform -translate-y-1/2 bg-white  text-gray-800 font-bold py-2 px-4 rounded-full" onclick="nextSlide()">
-            &#10095;
-        </button>
-
-         </div>
+        
+        
 
 
       </div></div>
     </header>
 
     <main>
-        <!--start-products-->
-        <section id="products" class=" p-4 m-5 text-center ">
-          <div class="w-7xl mx-auto"> 
-            <h2 class="text-4xl font-bold capitalize text-gray-500">Our Products</h2>
-            <div class="products-items flex justify-center align-center gap-8 m-9 flex-wrap  text-2xl font-meduim text-gray-500 ">
-                <a href="#" class=" hover:text-pink-300" >skin care</a>
-                <a href="#" class=" hover:text-pink-300">Body Care</a>
-                <a href="#" class=" hover:text-pink-300">Hair Care</a>
-                <a href="#" class=" hover:text-pink-300">Korean </a>
+        <!--start-cart-items-->
+        <section id="cartContainer" class="w-7xl mx-auto p-3 m-5 text-center">
 
-
-            </div>
-          </div>
-        
-        </section>
-        <!--end-products-->
-        <!--start-offers-->
-        <section id="Offers" class=" w-7xl mx-auto p-4 m-5 text-center">
-          <h2 class="text-5xl font-bold capitalize text-gray-500">offers</h2>
-          <p class="text-xl  font-meduim p-4 m-5 text-gray-400">Made using clean, non-toxic ingredients, our productsare designed for everyone.</p>
-            <!--product-item-container-->
-          <div id="products-container" class="flex justify-center align-center gap-8 m-9 flex-wrap ">
-            </div>
-          
-
-          </div>
-        </section>
+        </section>   <!--end-cart-items-->
     </main>
-    <script src="js/main.js"></script>
+   
+    
+
+ 
   </body>
 </html>
