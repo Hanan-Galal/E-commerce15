@@ -10,7 +10,7 @@ export const displayProducts= (productsList) => {
         const productCard = document.createElement("div");
     productCard.className = "bg-pink-50 p-8 rounded-lg shadow-lg";
 
-    productCard.innerHTML = `
+    productCard.innerHTML = `+
       <img src="${product.image}" class="w-64 h-64 object-cover rounded-lg" />
       <h3 class="text-2xl font-bold text-gray-500 mt-4">${product.name}</h3>
       <p class="text-xl text-gray-400 m-4">$${product.price}</p>
