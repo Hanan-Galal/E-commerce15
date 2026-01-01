@@ -1,145 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-      
-  
-
-  </head>
-
-  <body>
-    <header class="  bg-neutral-100 ">
-      
-      <div class="w-7xl mx-auto"> 
-         <!--start-navbar-->
-        <nav class="flex items-center justify-between p-3 ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script type="module" src="../js/contact.js" defer></script>
+</head>
+<body class="bg-neutral-50">
+  <header class="bg-neutral-100 shadow">
+    <div class="w-11/12 md:w-7xl mx-auto">
+      <nav class="flex flex-col sm:flex-row items-center justify-between p-3 gap-3 sm:gap-0">
         <a href="../index.html">
-              <img
-            src="../images/logo-skincare.jpg"
-            alt="logo-skincare"
-            class="h-25 rounded-full"
-          />
+          <img src="../images/logo-skincare.jpg" alt="logo-skincare" class="h-16 md:h-20 rounded-full" />
         </a>
-          <ul
-            class="flex justify-evenly items-center gap-8 text-lg font-medium text-gray-500"
-          >
-            <li>
-              <a
-                href="../index.html"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="./products.html"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md"
-                >products</a
-              >
-            </li>
-            <li>
-              <a
-                href="./contact.html"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md"
-                >contact</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md flex justify-center items-center gap-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
-                  />
+        <ul class="flex flex-wrap justify-center md:justify-end items-center gap-2 md:gap-6 text-base md:text-lg font-medium text-gray-500">
+          <li><a href="../index.html" class="hover:bg-pink-100 hover:text-neutral-500 p-2 md:p-3 rounded-md">Home</a></li>
+          <li><a href="./products.html" class="hover:bg-pink-100 hover:text-neutral-500 p-2 md:p-3 rounded-md">Products</a></li>
+          <li><a href="./contact.html" class="hover:bg-pink-100 hover:text-neutral-500 p-2 md:p-3 rounded-md">Contact</a></li>
+          <li>
+            <a href="#" class="hover:bg-pink-100 hover:text-neutral-500 p-2 md:p-3 rounded-md flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 md:w-6 h-5 md:h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/>
+              </svg>
+              Login
+            </a>
+          </li>
+          <li>
+            <a href="./cart.html" class="hover:bg-pink-100 hover:text-neutral-500 p-2 md:p-3 rounded-md flex items-center gap-2 relative">
+              <div class="cart-icon relative">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 md:w-6 h-5 md:h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
                 </svg>
-                login
-              </a>
-            </li>
-              <li>
-              <a
-                href="./cart.html"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md flex justify-center items-center gap-2"
-              >
-             <div class="cart-icon relative">
-                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6 "
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                  />
-                </svg>
-                  <span id="cart-count" class=" bg-pink-500 text-white text-xs font-bold rounded-full px-1 absolute -top-2 -right-2"></span>           </div>
-                cart</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!--end navbar-->
-        
-        
+                <span id="cart-count" class="bg-pink-500 text-white text-xs font-bold rounded-full px-1 absolute -top-2 -right-2"></span>
+              </div>
+              Cart
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-
-      </div></div>
-    </header>
-
-    <main>
-        <!--start-contact-section-->
-        <section id="contact-section" class="w-7xl mx-auto p-6 m-5 text-center  bg-neutral-100 rounded-sm">
-        <h2 class="text-gray-600  capitalize text-4xl 0 ">contact us</h2>
-        <form id="contact-form"  class="max-w-md mx-auto flex flex-col justify-start gap-4 my-8 text-md font-medium text-gray-600" action="">
-         <div class="name flex gap-4"> 
-             <div>  
-             <label for="frist-name" class="block text-left mb-1">FristName</label>
-            <input type="text" id="frist-name" name="frist-name" required class="w-full border-2 border-gray-400/75 rounded-md m-2 p-1 focus:outline-pink-300/75"/>
+  <main>
+    <section id="contact-section" class="w-11/12 md:w-7xl mx-auto p-6 my-5 text-center bg-neutral-100 rounded-lg shadow-md">
+      <h2 class="text-gray-600 capitalize text-3xl md:text-4xl mb-6">Contact Us</h2>
+      <form id="contact-form" class="w-full max-w-3xl mx-auto flex flex-col gap-4 my-8 text-md font-medium text-gray-600">
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="flex-1">
+            <label for="frist-name" class="block text-left mb-1">First Name</label>
+            <input type="text" id="frist-name" name="frist-name" required class="w-full border-2 border-gray-400/75 rounded-md p-2 focus:outline-pink-300/75"/>
             <span class="error text-red-500 text-sm"></span>
+          </div>
+          <div class="flex-1">
+            <label for="Last-name" class="block text-left mb-1">Last Name</label>
+            <input type="text" id="Last-name" name="Last-name" required class="w-full border-2 border-gray-400/75 rounded-md p-2 focus:outline-pink-300/75"/>
+            <span class="error text-red-500 text-sm"></span>
+          </div>
         </div>
-           <div >
-             <label for="Last-name" class="block text-left mb-1">Last Name</label>
-            <input type="text" id="Last-name" name="Last-name" required class=" w-full border-2 border-gray-400/75 rounded-md m-2 p-1 focus:outline-pink-300/75"/>
-             <span class="error text-red-500 text-sm"></span>
+        <div>
+          <label for="email" class="block text-left mb-1">Email</label>
+          <input type="email" id="email" name="email" required class="w-full border-2 border-gray-400/75 rounded-md p-2 focus:outline-pink-300/75"/>
+          <span class="error text-red-500 text-sm"></span>
         </div>
-         </div>
-              <div>
-                 <label for="email" class="block text-left mb-1">Email</label>
-                <input type="email" id="email" name="email" required class=" w-full border-2 border-gray-400/75 rounded-md m-2 p-1 focus:outline-pink-300/75"/>
-                 <span class="error text-red-500 text-sm"></span>
-            </div>
-                <div>
-                     <label for="message" class="block text-left mb-1">Message</label>
-                    <textarea id="message" name="message" rows="4" cols="50" class=" w-full border-2 border-gray-400/75 rounded-md m-2 p-1 focus:outline-pink-300/75"></textarea>
-                     <span class="error text-red-500 text-sm"></span>
-                </div>
-                <div>
-                    <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 mt-3">Submit</button>  
-                </div>  
-       
-            </form>
-        </section>   <!--end-contact-section-->
-    </main>
-   
-<script type="module" src="../js/contact.js"></script>
-    
-
- 
-  </body>
+        <div>
+          <label for="message" class="block text-left mb-1">Message</label>
+          <textarea id="message" name="message" rows="5" class="w-full border-2 border-gray-400/75 rounded-md p-2 focus:outline-pink-300/75"></textarea>
+          <span class="error text-red-500 text-sm"></span>
+        </div>
+        <div class="flex justify-center">
+          <button type="submit" class="bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600 mt-3">Submit</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
 </html>

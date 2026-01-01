@@ -45,3 +45,51 @@ export const filterByCategory = (category) => {
 }
 
 displayProducts(currentProducts);
+
+const sortSelect = document.getElementById("sort-select");
+sortSelect.addEventListener("change", () => {
+  sortProducts(sortSelect.value);
+});
+export const sortProducts = (type) => {
+  let sortedProducts = [...currentProducts];
+  switch (type) {
+    case "price-low":
+      sortedProducts.sort((a, b) => a.price - b.price);
+      break;
+    case "price-high":
+      sortedProducts.sort((a, b) => b.price - a.price);
+      break;
+    case "name-a-z":
+      sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "name-z-a":
+      sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+      break;
+  }
+ displayProducts(getPaginatedProducts());
+  currentProducts = sortedProducts;
+};
+let currentPage = 1;
+const itemsPerPage = 3;
+const getPaginatedProducts = () => {
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return currentProducts.slice(start, end);
+};
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    displayProducts(getPaginatedProducts());
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  const maxPage = Math.ceil(currentProducts.length / itemsPerPage);
+  if (currentPage < maxPage) {
+    currentPage++;
+    displayProducts(getPaginatedProducts());
+  }
+});

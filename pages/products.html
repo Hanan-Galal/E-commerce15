@@ -4,125 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-      
-  
-
   </head>
 
   <body>
-    <header class="  bg-neutral-100 ">
-      
-      <div class="w-7xl mx-auto"> 
-         <!--start-navbar-->
-        <nav class="flex items-center justify-between p-3 ">
+    <header class="bg-neutral-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex flex-col sm:flex-row items-center justify-between p-3 gap-3 sm:gap-0">
           <a href="../index.html">
-              <img
-            src="../images/logo-skincare.jpg"
-            alt="logo-skincare"
-            class="h-25 rounded-full"
-          />
-        </a>
-          <ul
-            class="flex justify-evenly items-center gap-8 text-lg font-medium text-gray-500"
-          >
+            <img src="../images/logo-skincare.jpg" alt="logo-skincare" class="h-20 rounded-full" />
+          </a>
+          <ul class="flex flex-wrap sm:flex-nowrap justify-center sm:justify-end items-center gap-4 sm:gap-8 text-lg font-medium text-gray-500">
+            <li><a href="../index.html" class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md">Home</a></li>
+            <li><a href="#" class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md">Products</a></li>
+            <li><a href="./contact.html" class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md">Contact</a></li>
             <li>
-              <a
-                href="../index.html"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md"
-                >products</a
-              >
-            </li>
-            <li>
-              <a
-                href="./contact.html"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md"
-                >contact</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md flex justify-center items-center gap-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
-                  />
+              <a href="#" class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md flex justify-center items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/>
                 </svg>
-                login
+                Login
               </a>
             </li>
-              <li>
-              <a
-                href="./cart.html"
-                class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md flex justify-center items-center gap-2"
-              >
-             <div class="cart-icon relative">
-                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6 "
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                  />
-                </svg>
-                  <span id="cart-count" class=" bg-pink-500 text-white text-xs font-bold rounded-full px-1 absolute -top-2 -right-2"></span>           </div>
-                cart</a
-              >
+            <li>
+              <a href="./cart.html" class="hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md flex justify-center items-center gap-2">
+                <div class="cart-icon relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
+                  </svg>
+                  <span id="cart-count" class="bg-pink-500 text-white text-xs font-bold rounded-full px-1 absolute -top-2 -right-2"></span>
+                </div>
+                Cart
+              </a>
             </li>
           </ul>
         </nav>
-        <!--end navbar-->
-        
-        
-
-
-      </div></div>
+      </div>
     </header>
 
     <main>
-        <section id="products-list" class="p-5 text-center my-5 ">
-        <h2 class="text-4xl font-bold text-gray-500">Our Products</h2>
-        <div class="categries flex-row justify-center items-center gap-8 my-6 p-4 text-lg font-medium text-neutral-500">
-            <button data-category="all" class="bg-pink-100 px-4 py-2 m-4 rounded-md">All</button>
-<button data-category="skincare" class="bg-pink-100 px-4 py-2 m-4 rounded-md">Skincare</button>
-<button data-category="bodycare" class="bg-pink-100 px-4 py-2 m-4 rounded-md">Bodycare</button>
-<button data-category="haircare" class="bg-pink-100 px-4 py-2 m-4 rounded-md">Haircare</button>
-
-            
+      <section id="products-list" class="relative p-5 text-center my-5">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-500">Our Products</h2>
+        <div class="categories flex flex-wrap justify-center items-center gap-4 sm:gap-8 my-6 p-4 text-lg font-medium text-neutral-500">
+          <button data-category="all" class="bg-pink-100 px-4 py-2 m-2 sm:m-4 rounded-md">All</button>
+          <button data-category="skincare" class="bg-pink-100 px-4 py-2 m-2 sm:m-4 rounded-md">Skincare</button>
+          <button data-category="bodycare" class="bg-pink-100 px-4 py-2 m-2 sm:m-4 rounded-md">Bodycare</button>
+          <button data-category="haircare" class="bg-pink-100 px-4 py-2 m-2 sm:m-4 rounded-md">Haircare</button>
         </div>
- <div
-          id="products-container"
-          class="flex justify-center gap-8 flex-wrap"></div>
-    </section>
 
+        <select id="sort-select" class="text-gray-400 border-2 border-pink-200 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300 p-1 mb-6">
+          <option value="default">Sort By</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="name-a-z">Name: A to Z</option>
+          <option value="name-z-a">Name: Z to A</option>
+        </select>
+
+        <div id="products-container" class="flex flex-wrap justify-center gap-4 sm:gap-8"></div>
+
+        <div class="flex flex-wrap justify-center gap-4 mt-6">
+          <button id="prevBtn" class="bg-pink-100 px-4 py-2 rounded">Prev</button>
+          <button id="nextBtn" class="bg-pink-100 px-4 py-2 rounded">Next</button>
+        </div>
+      </section>
     </main>
-  <script type="module" src="../js/cart.js"></script>
-<script type="module" src="../js/products.js"></script>
 
-      
- 
+    <script type="module" src="../js/cart.js"></script>
+    <script type="module" src="../js/products.js"></script>
   </body>
 </html>

@@ -10,19 +10,24 @@ export const displayCart = () => {
 
     cart.forEach((product) => { 
         const productCard = document.createElement("div");
-        productCard.className = "bg-pink-50 p-8 rounded-lg shadow-lg";
-        productCard.innerHTML = `
-            <div class="bg-pink-50 p-5 rounded-lg shadow-lg w-1/2 mx-auto mb-4">
-                <img src="${product.image}" class="w-1/2 mx-auto h-50 object-cover rounded-lg" />
-                <h3 class="text-2xl font-bold text-gray-500 mt-4">${product.name}</h3>
-                <p class="text-xl text-gray-400 m-4">
-                    <button class="removeBtn text-white bg-gray-500 rounded p-2">Remove</button>
-                    ${product.quantity}
-                    <button class="addBtn text-white bg-gray-500 rounded p-2">Add</button>
-                </p>
-                <p class="text-xl text-gray-400 m-4">total price: $${product.price * product.quantity}</p>
-            </div>
-        `;
+  productCard.className = `
+        bg-pink-50 p-4 rounded-lg shadow-lg
+        w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4
+        flex flex-col items-center
+        box-border
+    `;
+    productCard.innerHTML = `
+        <img src="${product.image}" class="w-3/4 sm:w-2/3 md:w-3/4 h-40 sm:h-48 md:h-52 lg:h-56 xl:h-60 object-cover rounded-lg" />
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-500 mt-4 text-center">${product.name}</h3>
+        <p class="text-md sm:text-lg text-gray-400 my-4 flex justify-center items-center gap-2">
+            <button class="removeBtn text-white bg-gray-500 rounded p-2">Remove</button>
+            ${product.quantity}
+            <button class="addBtn text-white bg-gray-500 rounded p-2">Add</button>
+        </p>
+        <p class="text-md sm:text-lg text-gray-400 my-2">total price: $${product.price * product.quantity}</p>
+    `;
+
+
         const removeBtn = productCard.querySelector(".removeBtn");
         removeBtn.addEventListener("click", () => removeProduct(product.id));
         const addBtn = productCard.querySelector(".addBtn");
