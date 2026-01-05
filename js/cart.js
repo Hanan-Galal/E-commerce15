@@ -1,6 +1,8 @@
 import { products } from "./data.js";
 
 const cartContainer = document.getElementById("cartContainer");
+const placeOrderBtn = document.getElementById("placeOrder");
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 export const displayCart = () => {
@@ -11,73 +13,137 @@ export const displayCart = () => {
   cart.forEach((product) => {
     const productCard = document.createElement("div");
     productCard.className = `
-        bg-pink-50 p-4 rounded-lg shadow-lg
-        w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4
-        flex flex-col items-center
-        box-border
-    `;
-    productCard.innerHTML = `
-        <img src=".${
-          product.image
-        }" class="w-3/4 sm:w-2/3 md:w-3/4 h-40 sm:h-48 md:h-52 lg:h-56 xl:h-60 object-cover rounded-lg" />
-        <h3 class="text-xl sm:text-2xl font-bold text-gray-500 mt-4 text-center">${
-          product.name
-        }</h3>
-        <p class="text-md sm:text-lg text-gray-400 my-4 flex justify-center items-center gap-2">
-            <button class="removeBtn text-white bg-gray-500 rounded p-2">Remove</button>
-            ${product.quantity}
-            <button class="addBtn text-white bg-gray-500 rounded p-2">Add</button>
-        </p>
-        <p class="text-md sm:text-lg text-gray-400 my-2">total price: $${
-          product.price * product.quantity
-        }</p>
+      bg-pink-50 p-4 rounded-lg shadow-lg
+      w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4
+      flex flex-col items-center
+      box-border
     `;
 
-    const removeBtn = productCard.querySelector(".removeBtn");
-    removeBtn.addEventListener("click", () => removeProduct(product.id));
-    const addBtn = productCard.querySelector(".addBtn");
-    addBtn.addEventListener("click", () => addToCart(product.id));
+    productCard.innerHTML = `
+      <img src=".${product.image}" class="w-3/4 h-48 object-cover rounded-lg" />
+      <h3 class="text-xl font-bold text-gray-500 mt-4 text-center">
+        ${product.name}
+      </h3>
+      <p class="text-gray-400 flex items-center gap-2 mt-2">
+        <button class="removeBtn bg-gray-500 text-white px-2 rounded">-</button>
+        ${product.quantity}
+        <button class="addBtn bg-gray-500 text-white px-2 rounded">+</button>
+      </p>
+      <p class="text-gray-400 mt-2">
+        Total: $${product.price * product.quantity}
+      </p>
+    `;
+
+    productCard
+      .querySelector(".removeBtn")
+      .addEventListener("click", () => removeProduct(product.id));
+
+    productCard
+      .querySelector(".addBtn")
+      .addEventListener("click", () => addToCart(product.id));
+
     cartContainer.appendChild(productCard);
   });
+
+  updateCartCount();
+  renderOrderSummary();
 };
 
 export const addToCart = (productId) => {
-  const product = products.find((card) => card.id === productId);
-  const cartItem = cart.find((item) => item.id === productId);
+  const product = products.find(p => p.id === productId);
+  const item = cart.find(p => p.id === productId);
 
-  if (cartItem) {
-    cartItem.quantity += 1;
-  } else {
-    cart.push({ ...product, quantity: 1 });
-  }
+  item ? item.quantity++ : cart.push({ ...product, quantity: 1 });
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
+  saveCart();
 };
 
 export const removeProduct = (productId) => {
-  const productIndex = cart.findIndex((item) => item.id === productId);
-  if (productIndex > -1) {
-    if (cart[productIndex].quantity > 1) {
-      cart[productIndex].quantity -= 1;
-    } else {
-      cart.splice(productIndex, 1);
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-    displayCart();
-    updateCartCount();
+  const index = cart.findIndex(p => p.id === productId);
+
+  if (index > -1) {
+    cart[index].quantity > 1
+      ? cart[index].quantity--
+      : cart.splice(index, 1);
   }
+
+  saveCart();
 };
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  displayCart();
+}
 
 export const updateCartCount = () => {
-  const cartCount = document.getElementById("cart-count");
-  if (!cartCount) return;
+  const counter = document.getElementById("cart-count");
+  if (!counter) return;
 
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-
-  cartCount.textContent = totalQuantity;
+  counter.textContent = cart.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
 };
 
-document.addEventListener("DOMContentLoaded", () => displayCart());
+export function getCartTotal() {
+  return cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+}
+
+function renderOrderSummary() {
+  const summary = document.getElementById("orderSummary");
+  if (!summary) return;
+
+  summary.innerHTML = `
+    <p>Total Items: <strong>${cart.length}</strong></p>
+    <p>Total Price: <strong>$${getCartTotal()}</strong></p>
+  `;
+}
+
+function showMessage(text, type = "success") {
+  const msg = document.getElementById("checkoutMessage");
+  if (!msg) return;
+
+  msg.textContent = text;
+  msg.className = `
+    mt-3 text-center font-medium
+    ${type === "success" ? "text-green-600" : "text-red-600"}
+  `;
+}
+
+if (placeOrderBtn) {
+  placeOrderBtn.addEventListener("click", () => {
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const address = document.getElementById("address").value.trim();
+
+    if (!name || !phone || !address) {
+      showMessage("Please fill all fields", "error");
+      return;
+    }
+
+    if (cart.length === 0) {
+      showMessage("Your cart is empty", "error");
+      return;
+    }
+
+    const order = {
+      customer: { name, phone, address },
+      items: cart,
+      total: getCartTotal(),
+      date: new Date().toISOString()
+    };
+
+    console.log("ORDER:", order);
+
+    showMessage("Ordered successfully");
+
+    cart = [];
+    localStorage.removeItem("cart");
+    displayCart();
+  });
+}
+
+document.addEventListener("DOMContentLoaded", displayCart);

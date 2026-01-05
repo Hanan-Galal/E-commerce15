@@ -120,7 +120,7 @@ export const products = [
   },
   {
     id: 9,
-    name: "Moisturizing Body Lotion",
+    name: "Moisturizing  Lotion",
     price: 26.0,
     image: "./images/product9.webp",
     category: "haircare",
