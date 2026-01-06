@@ -8,11 +8,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script type="module" src="../js/contact.js" defer></script>
 </head>
-<body class="bg-neutral-50">
-  <header class="bg-neutral-100 shadow">
-    <div class="w-11/12 md:w-7xl mx-auto">
-       <nav
-          class="fixed top-0 left-0 w-full z-50 flex flex-col sm:flex-row items-center justify-between py-3 px-8  gap-3 sm:gap-0 bg-gray-100 shadow-sm"
+
+ <body class="bg-white pt-40 sm:pt-16">
+    <header class="bg-neutral-100 ">
+      <div class=" mx-auto px-4 sm:px-6 lg:px-8">
+        <nav
+          class="fixed top-0 left-0 w-full z-50 flex  sm:flex-row items-center justify-between py-3 px-8  gap-3 sm:gap-0 bg-gray-100 shadow-sm"
         >
           <a href="./index.html">
             <img
@@ -21,7 +22,19 @@
               class="h-15 rounded-full"
             />
           </a>
- <ul class="flex flex-wrap sm:flex-nowrap justify-center sm:justify-end items-center gap-4 sm:gap-8 text-lg font-medium text-gray-500">
+          <button
+  id="menuBtn"
+  class="sm:hidden text-2xl text-gray-600 focus:outline-none"
+>
+  ☰
+</button>
+
+<ul
+  id="mobileMenu"
+  class="hidden sm:flex flex-col sm:flex-row w-full sm:w-auto
+         justify-center sm:justify-end items-center
+         gap-4 sm:gap-8 text-lg font-medium text-gray-500"
+>
   <li>
     <a href="../index.html" data-page="index" class="nav-link hover:bg-pink-100 hover:text-neutral-500 p-3 rounded-md flex items-center gap-2">
       
@@ -63,7 +76,7 @@
   </header>
 
   <main>
-    <section id="contact-section" class="w-11/12 md:w-7xl mx-auto p-6 my-5 text-center bg-neutral-100 rounded-lg shadow-md">
+    <section id="contact-section" class="w-11/12 md:w-7xl mx-auto p-6 my-20 text-center bg-neutral-100 rounded-lg shadow-md overflow-x-auto">
       <h2 class="text-gray-600 capitalize text-3xl md:text-4xl mb-6">Contact Us</h2>
       <form id="contact-form" class="w-full max-w-3xl mx-auto flex flex-col gap-4 my-8 text-md font-medium text-gray-600">
         <div class="flex flex-col md:flex-row gap-4">

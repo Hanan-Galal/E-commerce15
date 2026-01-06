@@ -1,6 +1,13 @@
 import { products } from "./data.js";
 import { addToCart} from "./cart.js";
 import { updateCartCount } from "./cart.js";
+
+ const menuBtn = document.getElementById("menuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  }); 
  updateCartCount();
 
  const links = document.querySelectorAll(".nav-link");
