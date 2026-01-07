@@ -87,15 +87,6 @@ addCheck.classList.add("opacity-100");
   
 
 });
-productCard.addEventListener("mouseleave", () => {
-  const addCheck = productCard.querySelector(".add-check");
-  addCheck.classList.remove("inline-block");
-});
-
-
-
-
-
 
     productsContainer.appendChild(productCard);
   });
