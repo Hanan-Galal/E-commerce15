@@ -20,7 +20,7 @@ export const displayCart = () => {
     `;
 
     productCard.innerHTML = `
-      <img src=".${product.image}" class="w-3/4 h-48 object-cover rounded-lg" />
+      <img src=".${product.image}"  loading="lazy" class="w-3/4 h-48 object-cover rounded-lg" />
       <h3 class="text-xl font-bold text-gray-500 mt-4 text-center">
         ${product.name}
       </h3>

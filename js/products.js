@@ -16,7 +16,7 @@ export const displayProducts = (productsList) => {
       "flex flex-col bg-pink-50 rounded-xl shadow-md p-4 w-72";
 
     productCard.innerHTML = `
-      <img src=".${product.image}" class="w-full h-48 object-cover rounded-lg" />
+      <img src=".${product.image}"  loading="lazy" class="w-full h-48 object-cover rounded-lg" />
       <h3 class="text-lg font-semibold text-gray-600">${product.name}</h3>
       <p class="text-xl text-gray-400 m-4">$${product.price}</p>
       <button class="mt-4 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-300">
