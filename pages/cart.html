@@ -100,59 +100,44 @@
     </header>
 
     <main>
-      <section
-        id="cartContainer"
-        class="w-11/12 md:w-7xl mx-auto p-3 my-28 flex flex-wrap justify-center gap-6"
-      ></section>
-      <!-- CHECKOUT -->
-      <div
-        id="checkout"
-        class="bg-white p-4 sm:p-6 rounded-xl shadow-md mt-6 sm:mt-8 max-w-full sm:max-w-lg mx-3 sm:mx-auto"
-      >
-        <h2
-          class="text-xl sm:text-2xl font-bold text-gray-600 mb-4 text-center sm:text-left"
-        >
-          Checkout
-        </h2>
+   <div class="w-11/12 md:w-7xl mx-auto my-28 grid grid-cols-1 lg:grid-cols-3 gap-8">
+  
+  <section
+    id="cartContainer"
+    class="lg:col-span-2 flex flex-wrap justify-center gap-6"
+  ></section>
 
-        
-        <div
-          id="orderSummary"
-          class="mb-4 text-gray-500 text-sm sm:text-base"
-        ></div>
+  <div class="bg-white p-6 rounded-xl shadow-lg h-fit lg:sticky lg:top-28">
+    <h2 class="text-2xl font-bold text-gray-700 mb-4">Checkout</h2>
+    <div id="orderSummary" class="text-gray-500 mb-6"></div>
+    <input id="name" type="text" placeholder="Full Name" class="w-full border p-3 rounded mb-4"/>
+    <input id="phone" type="text" placeholder="Phone Number" class="w-full border p-3 rounded mb-4"/>
+    <textarea id="address" placeholder="Address" class="w-full border p-3 rounded mb-4"></textarea>
+    <button id="placeOrder" class="w-full bg-pink-500 text-white py-3 rounded-lg hover:bg-pink-600 transition-colors">
+      Place Order
+    </button>
+  </div>
 
-        <input
-          id="name"
-          type="text"
-          placeholder="Full Name"
-          class="w-full border p-2 sm:p-3 rounded mb-3 text-sm sm:text-base"
-        />
+<div
+  id="toaster"
+  class="
+    fixed
+    top-3 sm:top-5
+    left-1/2
+    -translate-x-1/2
+    w-[90%] sm:w-auto
+    max-w-md
+    flex flex-col
+    gap-3
+    z-50
+    items-center
+    px-2
+  "
+></div>
 
-        <input
-          id="phone"
-          type="text"
-          placeholder="Phone Number"
-          class="w-full border p-2 sm:p-3 rounded mb-3 text-sm sm:text-base"
-        />
 
-        <textarea
-          id="address"
-          placeholder="Address"
-          rows="3"
-          class="w-full border p-2 sm:p-3 rounded mb-4 text-sm sm:text-base resize-none"
-        ></textarea>
 
-        <button
-          id="placeOrder"
-          class="w-full bg-gray-600 text-white py-2 sm:py-3 rounded hover:bg-gray-700 transition text-sm sm:text-base"
-        >
-            Order now
-        </button>
-      </div>
-      <p
-  id="checkoutMessage"
-  class="hidden mt-3 text-center text-sm font-medium">
-</p>
+
 
     </main>
     <script type="module" src="../js/main.js"></script>
