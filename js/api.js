@@ -1,0 +1,146 @@
+// export const products = [
+//   {
+//     id: 1,
+//     name: "Hydrating Face Cream",
+//     price: 25.0,
+//     image: "./images/product1.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 2,
+//     name: "Revitalizing Hair Serum",
+//     price: 30.0,
+//     image: "./images/product2.webp",
+//     category: "haircare",
+//   },
+//   {
+//     id: 3,
+//     name: "Gentle Foaming Cleanser",
+//     price: 20.0,
+//     image: "./images/product3.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 4,
+//     name: "Nourishing Night Balm",
+//     price: 35.0,
+//     image: "./images/product4.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 5,
+//     name: "Vitamin C Serum",
+//     price: 32.0,
+//     image: "./images/product5.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 6,
+//     name: "Sunscreen SPF 50",
+//     price: 28.0,
+//     image: "./images/product6.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 7,
+//     name: "Exfoliating Scrub",
+//     price: 22.0,
+//     image: "./images/product7.webp",
+//     category: "bodycare",
+//   },
+//   {
+//     id: 8,
+//     name: "Moisturizing Body Lotion",
+//     price: 26.0,
+//     image: "./images/product8.webp",
+//     category: "bodycare",
+//   },
+//   {
+//     id: 9,
+//     name: "Moisturizing Body Lotion",
+//     price: 26.0,
+//     image: "./images/product9.webp",
+//     category: "haircare",
+//   },
+//     {
+//     id: 1,
+//     name: "Hydrating Face Cream",
+//     price: 25.0,
+//     image: "./images/product1.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 2,
+//     name: "Revitalizing Hair Serum",
+//     price: 30.0,
+//     image: "./images/product2.webp",
+//     category: "haircare",
+//   },
+//   {
+//     id: 3,
+//     name: "Gentle Foaming Cleanser",
+//     price: 20.0,
+//     image: "./images/product3.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 4,
+//     name: "Nourishing Night Balm",
+//     price: 35.0,
+//     image: "./images/product4.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 5,
+//     name: "Vitamin C Serum",
+//     price: 32.0,
+//     image: "./images/product5.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 6,
+//     name: "Sunscreen SPF 50",
+//     price: 28.0,
+//     image: "./images/product6.webp",
+//     category: "skincare",
+//   },
+//   {
+//     id: 7,
+//     name: "Exfoliating Scrub",
+//     price: 22.0,
+//     image: "./images/product7.webp",
+//     category: "bodycare",
+//   },
+//   {
+//     id: 8,
+//     name: "Moisturizing Body Lotion",
+//     price: 26.0,
+//     image: "./images/product8.webp",
+//     category: "bodycare",
+//   },
+//   {
+//     id: 9,
+//     name: "Moisturizing  Lotion",
+//     price: 26.0,
+//     image: "./images/product9.webp",
+//     category: "haircare",
+//   },
+// ];
+// js/api.js
+const BASE_URL = "https://fakestoreapi.com";
+
+export const getProducts = async () => {
+  const res = await fetch(`${BASE_URL}/products`);
+  return await res.json();
+};
+
+export const getCategories = async () => {
+  const res = await fetch(`${BASE_URL}/products/categories`);
+  return await res.json();
+};
+
+export const getProductsByCategory = async (category) => {
+  const res = await fetch(`${BASE_URL}/products/category/${category}`);
+  return await res.json();
+};
+

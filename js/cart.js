@@ -1,7 +1,6 @@
-import { products } from "./data.js";
-
 const cartContainer = document.getElementById("cartContainer");
 const placeOrderBtn = document.getElementById("placeOrder");
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let toasterContainer = document.getElementById("toaster");
 
@@ -20,16 +19,7 @@ export function showToast(message, type = "success", duration = 3000) {
     transform transition-all duration-300 opacity-0
     ${type === "success" ? "bg-green-500" : type === "error" ? "bg-red-500" : "bg-blue-500"}
   `;
-
-  const msgSpan = document.createElement("span");
-  msgSpan.textContent = message;
-
-  const closeBtn = document.createElement("button");
-  closeBtn.innerHTML = "&times;";
-  closeBtn.className = "text-white text-lg font-bold";
-  closeBtn.onclick = () => toast.remove();
-
-  toast.append(msgSpan, closeBtn);
+  toast.textContent = message;
   toasterContainer.appendChild(toast);
 
   requestAnimationFrame(() => toast.classList.add("opacity-100"));
@@ -40,107 +30,17 @@ export function showToast(message, type = "success", duration = 3000) {
   }, duration);
 }
 
+export const addToCart = (product) => {
+  const item = cart.find(p => p.id === product.id);
 
-
-export const displayCart = () => {
-  if (!cartContainer) return;
-
-  cartContainer.innerHTML = "";
-
-  cart.forEach((product) => {
-    const productCard = document.createElement("div");
-    productCard.className = `
-      bg-pink-50 p-4 rounded-lg shadow-lg
-      w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4
-      flex flex-col items-center
-      box-border
-    `;
-
-    productCard.innerHTML = `
-      <img src=".${product.image}" loading="lazy" class="w-3/4 h-48 object-cover rounded-lg" />
-      <h3 class="text-xl font-bold text-gray-500 mt-4 text-center">
-        ${product.name}
-      </h3>
-      <p class="text-gray-400 flex items-center gap-2 mt-2">
-        <button class="removeBtn bg-gray-500 text-white px-2 rounded">
-          ${product.quantity === 1 ? "Remove" : "-"}
-        </button>
-        <span class="quantity">${product.quantity}</span>
-        <button class="addBtn bg-gray-500 text-white px-2 rounded">+</button>
-      </p>
-      <p class="text-gray-400 mt-2">
-        Total: $${product.price * product.quantity}
-      </p>
-    `;
-
-    const removeBtn = productCard.querySelector(".removeBtn");
-    const addBtn = productCard.querySelector(".addBtn");
-    const quantityEl = productCard.querySelector(".quantity");
-
-    removeBtn.addEventListener("click", () => {
-      const item = cart.find((p) => p.id === product.id);
-      if (!item) return;
-
-      if (item.quantity > 1) {
-        item.quantity--;
-        showToast(`Removed 1 ${item.name}`, "info");
-      } else {
-        cart.splice(cart.findIndex((p) => p.id === product.id), 1);
-        productCard.remove();
-        showToast(`${item.name} removed from cart`, "error");
-      }
-
-      saveCart();
-      if (item) {
-        quantityEl.textContent = item.quantity;
-        removeBtn.textContent = item.quantity === 1 ? "Remove" : "-";
-      }
-      updateCartCount();
-    });
-
-    addBtn.addEventListener("click", () => {
-      const item = cart.find((p) => p.id === product.id);
-      if (item) {
-        item.quantity++;
-        showToast(`Added 1 ${item.name}`, "success");
-      }
-      saveCart();
-      quantityEl.textContent = item.quantity;
-      removeBtn.textContent = item.quantity === 1 ? "Remove" : "-";
-      updateCartCount();
-    });
-
-    cartContainer.appendChild(productCard);
-  });
-
-  updateCartCount();
-  renderOrderSummary();
-};
-
-export const addToCart = (productId) => {
-  const product = products.find((p) => p.id === productId);
-  const item = cart.find((p) => p.id === productId);
-
-  item ? item.quantity++ : cart.push({ ...product, quantity: 1 });
-  showToast(`${product.name} added to cart`, "success");
-  saveCart();
-};
-
-export const removeProduct = (productId) => {
-  const index = cart.findIndex((p) => p.id === productId);
-
-  if (index > -1) {
-    const item = cart[index];
-    if (cart[index].quantity > 1) {
-      cart[index].quantity--;
-      showToast(`Removed 1 ${item.name}`, "info");
-    } else {
-      cart.splice(index, 1);
-      showToast(`${item.name} removed from cart`, "error");
-    }
+  if (item) {
+    item.quantity++;
+  } else {
+    cart.push({ ...product, quantity: 1 });
   }
 
   saveCart();
+  updateCartCount();
 };
 
 function saveCart() {
@@ -152,68 +52,75 @@ export const updateCartCount = () => {
   const counter = document.getElementById("cart-count");
   if (!counter) return;
 
-  counter.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+  counter.textContent = cart.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
 };
 
-export function getCartTotal() {
-  return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-}
+export const displayCart = () => {
+  if (!cartContainer) return;
 
-function renderOrderSummary() {
-  const summary = document.getElementById("orderSummary");
-  if (!summary) return;
+  cartContainer.innerHTML = "";
 
-  summary.innerHTML = `
-    <p>Total Items: <strong>${cart.length}</strong></p>
-    <p>Total Price: <strong>$${getCartTotal()}</strong></p>
+ cart.forEach(product => {
+  const productCard = document.createElement("div");
+  productCard.className = `
+    bg-white rounded-xl shadow-md p-4 flex flex-col
+    min-h-[400px] max-h-[450px] w-72
+    transition-transform transform hover:scale-105
   `;
-}
 
-function showMessage(text, type = "success") {
-  const msg = document.getElementById("checkoutMessage");
-  if (!msg) return;
+  productCard.innerHTML = `
+    <div class="flex-1 flex flex-col">
+      <img src="${product.image}" class="w-full h-48 object-contain rounded-lg mb-3 bg-gray-50 p-2" />
+      <h3 class="text-lg font-semibold text-gray-700 mb-2 line-clamp-2">${product.title}</h3>
+      <p class="text-gray-500 mb-2">$${(product.price * product.quantity).toFixed(2)}</p>
+    </div>
 
-  msg.textContent = text;
-  msg.className = `
-    mt-3 text-center font-medium
-    ${type === "success" ? "text-green-600" : "text-red-600"}
+    <div class="flex items-center justify-between mt-4">
+      <button class="removeBtn bg-gray-400 text-white px-3 py-1 rounded">
+        ${product.quantity === 1 ? "Remove" : "-"}
+      </button>
+      <span class="quantity font-medium">${product.quantity}</span>
+      <button class="addBtn bg-gray-400 text-white px-3 py-1 rounded">+</button>
+    </div>
   `;
-}
 
-if (placeOrderBtn) {
-  placeOrderBtn.addEventListener("click", () => {
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const address = document.getElementById("address").value.trim();
+  const removeBtn = productCard.querySelector(".removeBtn");
+  const addBtn = productCard.querySelector(".addBtn");
+  const quantityEl = productCard.querySelector(".quantity");
 
-    if (!name || !phone || !address) {
-      showMessage("Please fill all fields", "error");
-      showToast("Please fill all fields", "error");
+  removeBtn.addEventListener("click", () => {
+    if (product.quantity > 1) {
+      product.quantity--;
+    } else {
+      cart.splice(cart.findIndex(p => p.id === product.id), 1);
+      productCard.remove();
+      saveCart();
+      updateCartCount();
       return;
     }
-
-    if (cart.length === 0) {
-      showMessage("Your cart is empty", "error");
-      showToast("Your cart is empty", "error");
-      return;
-    }
-
-    const order = {
-      customer: { name, phone, address },
-      items: cart,
-      total: getCartTotal(),
-      date: new Date().toISOString(),
-    };
-
-    console.log("ORDER:", order);
-
-    showMessage("Ordered successfully");
-    showToast("Order placed successfully", "success");
-
-    cart = [];
-    localStorage.removeItem("cart");
-    displayCart();
+    quantityEl.textContent = product.quantity;
+    removeBtn.textContent = product.quantity === 1 ? "Remove" : "-";
+    saveCart();
+    updateCartCount();
   });
-}
 
-document.addEventListener("DOMContentLoaded", displayCart);
+  addBtn.addEventListener("click", () => {
+    product.quantity++;
+    quantityEl.textContent = product.quantity;
+    removeBtn.textContent = product.quantity === 1 ? "Remove" : "-";
+    saveCart();
+    updateCartCount();
+  });
+
+  cartContainer.appendChild(productCard);
+});
+
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCount();
+  displayCart();
+});
