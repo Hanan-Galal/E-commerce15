@@ -14,23 +14,27 @@ export const displayProducts = (productsList) => {
 
   productsList.forEach((product) => {
     const productCard = document.createElement("div");
-    productCard.className = `
-      bg-white rounded-xl shadow-md p-4 flex flex-col
-      min-h-[400px] w-full sm:w-72 m-2
-      transition-transform transform hover:scale-105
-    `;
+   productCard.className =
+  "flex flex-col bg-pink-50 rounded-xl shadow-md p-4 w-72 min-h-[450px]";
 
-    productCard.innerHTML = `
-      <div class="flex-1 flex flex-col">
-        <img src="${product.image}" class="w-full h-48 object-contain mb-3 bg-gray-50 p-2 rounded" />
-        <h3 class="text-gray-700 font-medium mb-2 line-clamp-2">${product.title}</h3>
-        <p class="text-gray-500 mb-2">$${product.price}</p>
-      </div>
-      <button
-        class="mt-auto bg-pink-500 text-white py-2 rounded hover:bg-pink-600 transition"
-        data-id="${product.id}">
-        Add to Cart
-      </button>
+   productCard.innerHTML = `
+ <img
+  src="${product.image}"
+  draggable="false"
+  loading="lazy"
+  class="w-full h-48 object-contain select-none"
+/>
+
+
+  <h3 class="text-lg font-semibold text-gray-600 mb-2 line-clamp-2">
+    ${product.title}
+  </h3>
+
+  <p class="text-xl text-gray-400 mb-2">$${product.price}</p>
+
+  <button class="mt-auto bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-400 transition">
+    Add to Cart
+  </button>
     `;
 
     const addButton = productCard.querySelector("button");

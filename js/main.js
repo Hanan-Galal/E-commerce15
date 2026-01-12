@@ -36,27 +36,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     productsList.forEach(product => {
       const productCard = document.createElement("div");
-     productCard.className =
+ productCard.className =
   "flex flex-col bg-pink-50 rounded-xl shadow-md p-4 w-72 min-h-[450px]";
 
-      productCard.innerHTML = `
-       <img src="${product.image}" class="w-full h-48 object-cover rounded-lg mb-3" />
+productCard.innerHTML = `
+ <img
+  src="${product.image}"
+  draggable="false"
+  loading="lazy"
+  class="w-full h-48 object-contain select-none"
+/>
 
-  <h3 class="text-lg font-semibold text-gray-600 mb-2" style="
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  ">
+
+  <h3 class="text-lg font-semibold text-gray-600 mb-2 line-clamp-2">
     ${product.title}
   </h3>
 
   <p class="text-xl text-gray-400 mb-2">$${product.price}</p>
 
-  <button class="mt-auto bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-400">
+  <button class="mt-auto bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-400 transition">
     Add to Cart
   </button>
-      `;
+`;
+
+
 
       const addButton = productCard.querySelector("button");
 
