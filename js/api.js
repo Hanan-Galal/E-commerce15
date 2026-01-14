@@ -144,3 +144,12 @@ export const getProductsByCategory = async (category) => {
   return await res.json();
 };
 
+export const getProductsByIds = async (ids = []) => {
+  if (ids.length === 0) return [];
+
+  const products = await getProducts();
+  return products.filter(product => ids.includes(product.id));
+};
+
+
+
