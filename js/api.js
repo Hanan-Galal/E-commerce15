@@ -131,20 +131,18 @@ const BASE_URL = "https://api.escuelajs.co/api/v1/products";
 
 export async function fetchProducts({
   page = 1,
-  limit = 6,
+  limit = 50,
   category = "all",
-  sort = "default"
-})
-  {
-  const params = new URLSearchParams({
-    page,
-    limit,
-    category,
-    sort
-  });
+}) {
+  const offset = (page - 1) * limit;
+  const params = new URLSearchParams({ offset, limit });
+
+  if (category !== "all") {
+    params.append("categoryId", category);
+  }
 
   const res = await fetch(`${BASE_URL}?${params}`);
-  return res.json();
+  return await res.json();
 }
 
 
