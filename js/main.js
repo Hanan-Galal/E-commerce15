@@ -1,7 +1,8 @@
 console.log("main loaded");
 
-import { getProducts } from "./api.js";
+import { fetchProducts } from "./api.js";
 import { addToCart, updateCartCount } from "./cart.js";
+
 
 const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
@@ -12,11 +13,12 @@ if (menuBtn && mobileMenu) {
   });
 }
 
+
 const links = document.querySelectorAll(".nav-link");
 const currentPath = location.pathname.toLowerCase();
 
 links.forEach(link => {
-  const page = link.dataset.page.toLowerCase();
+  const page = link.dataset.page?.toLowerCase();
   if (
     currentPath.includes(page) ||
     (currentPath === "/" && page === "index")
@@ -25,13 +27,27 @@ links.forEach(link => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
+
+const productsContainer = document.getElementById("products-container");
+
+if (productsContainer) {
+  loadProducts();
+}
+
+async function loadProducts({
+  page = 1,
+  limit = 6,
+  category = "all",
+  sort = "default"
+} = {}) {
   updateCartCount();
 
-  const productsContainer = document.getElementById("products-container");
-  if (!productsContainer) return;
-
-  const products = await getProducts();
+  const products = await fetchProducts({
+    page,
+    limit,
+    category,
+    sort
+  });
 
   productsContainer.innerHTML = "";
 
@@ -41,13 +57,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       "flex flex-col bg-pink-50 rounded-xl shadow-md p-4 w-72 min-h-[450px]";
 
     productCard.innerHTML = `
- <img 
-  src="${product.image}" 
-  draggable="false" 
+<img 
+  src="${product.images?.[0] || product.category?.image || 'https://via.placeholder.com/600x400'}"
+  alt="${product.title}"
+  onerror="this.src='https://via.placeholder.com/600x400';"
   loading="lazy"
-  class="h-40 object-contain mb-3 select-none" 
-  ondragstart="return false;" 
+  class="h-40 object-contain mb-3 select-none pointer-events-none"
 />
+
 
 
 
@@ -63,13 +80,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       </button>
     `;
 
-    const addButton = productCard.querySelector("button");
-
-    addButton.addEventListener("click", () => {
-      addToCart(product.id);
-      updateCartCount();
-    });
+    productCard
+      .querySelector("button")
+      .addEventListener("click", () => {
+        addToCart(product.id);
+        updateCartCount();
+      });
 
     productsContainer.appendChild(productCard);
   });
-});
+}

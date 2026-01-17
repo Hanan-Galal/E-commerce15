@@ -127,29 +127,26 @@
 //   },
 // ];
 // js/api.js
-const BASE_URL = "https://fakestoreapi.com";
+const BASE_URL = "https://api.escuelajs.co/api/v1/products";
 
-export const getProducts = async () => {
-  const res = await fetch(`${BASE_URL}/products`);
-  return await res.json();
-};
+export async function fetchProducts({
+  page = 1,
+  limit = 6,
+  category = "all",
+  sort = "default"
+})
+  {
+  const params = new URLSearchParams({
+    page,
+    limit,
+    category,
+    sort
+  });
 
-export const getCategories = async () => {
-  const res = await fetch(`${BASE_URL}/products/categories`);
-  return await res.json();
-};
+  const res = await fetch(`${BASE_URL}?${params}`);
+  return res.json();
+}
 
-export const getProductsByCategory = async (category) => {
-  const res = await fetch(`${BASE_URL}/products/category/${category}`);
-  return await res.json();
-};
-
-export const getProductsByIds = async (ids = []) => {
-  if (ids.length === 0) return [];
-
-  const products = await getProducts();
-  return products.filter(product => ids.includes(product.id));
-};
 
 
 

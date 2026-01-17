@@ -1,18 +1,20 @@
-import { getProductsByIds } from "./api.js";
+import { fetchProducts } from "./api.js";
 
 const cartContainer = document.getElementById("cartContainer");
 const placeOrderBtn = document.getElementById("placeOrder");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let toasterContainer = document.getElementById("toaster");
-if (!toasterContainer) {
-  toasterContainer = document.createElement("div");
-  toasterContainer.id = "toaster";
-  toasterContainer.className =
-    "fixed top-5 left-1/2 -translate-x-1/2 flex flex-col gap-3 z-50";
-  document.body.appendChild(toasterContainer);
-}
+const toaster =
+  document.getElementById("toaster") ||
+  (() => {
+    const t = document.createElement("div");
+    t.id = "toaster";
+    t.className =
+      "fixed top-5 left-1/2 -translate-x-1/2 flex flex-col gap-3 z-50";
+    document.body.appendChild(t);
+    return t;
+  })();
 
 export function showToast(message, type = "success") {
   const toast = document.createElement("div");
@@ -21,7 +23,7 @@ export function showToast(message, type = "success") {
     ${type === "success" ? "bg-green-500" : "bg-red-500"}
   `;
   toast.textContent = message;
-  toasterContainer.appendChild(toast);
+  toaster.appendChild(toast);
   setTimeout(() => toast.remove(), 3000);
 }
 
@@ -32,19 +34,30 @@ function saveCart() {
 export function updateCartCount() {
   const counter = document.getElementById("cart-count");
   if (!counter) return;
-  counter.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
+  counter.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
 }
 
 export function addToCart(productId) {
   const item = cart.find(i => i.productId === productId);
+
   if (item) {
     item.quantity++;
   } else {
     cart.push({ productId, quantity: 1 });
   }
+
   saveCart();
   updateCartCount();
   showToast("Added to cart");
+}
+
+async function getCartProducts() {
+  const data = await fetchProducts({ limit: 100 });
+  const products = data.products || data;
+
+  return products.filter(p =>
+    cart.some(c => c.productId === p.id)
+  );
 }
 
 async function displayCart() {
@@ -55,28 +68,30 @@ async function displayCart() {
   if (cart.length === 0) {
     cartContainer.innerHTML =
       `<p class="text-center text-gray-500">Cart is empty</p>`;
-    renderOrderSummary();
+    renderOrderSummary([]);
     return;
   }
 
-  const ids = cart.map(i => i.productId);
-  const products = await getProductsByIds(ids);
+  const products = await getCartProducts();
 
   cart.forEach(item => {
     const product = products.find(p => p.id === item.productId);
     if (!product) return;
 
     const card = document.createElement("div");
-    card.className = "bg-white rounded-xl shadow p-4 w-72 flex flex-col";
+    card.className =
+      "bg-white rounded-xl shadow p-4 w-72 flex flex-col";
 
     card.innerHTML = `
- <img 
-  src="${product.image}" 
-  draggable="false" 
+<img 
+  src="${product.images?.[0] || product.category?.image || 'https://via.placeholder.com/600x400'}"
+  alt="${product.title}"
   loading="lazy"
-  class="h-40 object-contain mb-3 select-none" 
-  ondragstart="return false;" 
+  draggable="false"
+  class="h-40 object-contain mb-3 select-none pointer-events-none"
 />
+
+
 
 
 
@@ -92,7 +107,9 @@ async function displayCart() {
         <button class="remove bg-gray-300 px-3 py-1 rounded">
           ${item.quantity === 1 ? "Remove" : "-"}
         </button>
+
         <span>${item.quantity}</span>
+
         <button class="add bg-gray-300 px-3 py-1 rounded">+</button>
       </div>
     `;
@@ -121,11 +138,12 @@ async function displayCart() {
   renderOrderSummary(products);
 }
 
-function renderOrderSummary(products = []) {
+function renderOrderSummary(products) {
   const summary = document.getElementById("orderSummary");
   if (!summary) return;
 
   const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
+
   const totalPrice = cart.reduce((sum, item) => {
     const product = products.find(p => p.id === item.productId);
     return product ? sum + product.price * item.quantity : sum;
@@ -153,6 +171,6 @@ if (placeOrderBtn) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  displayCart();
   updateCartCount();
+  displayCart();
 });
