@@ -2,7 +2,9 @@ import { fetchProducts } from "./api.js";
 import { addToCart, updateCartCount } from "./cart.js";
 
 let currentCategory = "all";
-const limit =50;
+const limit = 50;
+let isFetching = false;
+
 const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 const productsContainer = document.getElementById("products-container");
@@ -21,45 +23,56 @@ links.forEach(link => {
 });
 
 async function loadProducts() {
-  if (!productsContainer) return;
-  
+  if (!productsContainer || isFetching) return;
+
+  isFetching = true;
   updateCartCount();
-  productsContainer.innerHTML = "<p>Loading All Products...</p>";
+  productsContainer.innerHTML = "<p class='col-span-full text-center'>Loading All Products...</p>";
 
-  const products = await fetchProducts({
-    page: 1,
-    limit: limit,
-    category: currentCategory
-  });
+  try {
+    const products = await fetchProducts({
+      page: 1,
+      limit: limit,
+      category: currentCategory
+    });
 
-  productsContainer.innerHTML = "";
+    productsContainer.innerHTML = "";
 
-  products.forEach(product => {
-    let imgUrl = product.images?.[0] || 'https://via.placeholder.com/600x400';
+    if (products.length === 0) {
+      productsContainer.innerHTML = "<p class='col-span-full text-center'>No products found.</p>";
+      return;
+    }
 
-    const card = document.createElement("div");
-    card.className = "flex flex-col bg-pink-50 rounded-xl shadow-md p-4 w-72 min-h-[450px]";
-    card.innerHTML = `
-    <img src="${imgUrl}" 
-       draggable="false" 
-       onerror="this.src='https://via.placeholder.com/600x400';" 
-       class="h-40 w-full object-contain rounded-lg mb-3 select-none pointer-events-none" 
-       oncontextmenu="return false;" /> 
-       
-      <h3 class="text-lg font-semibold text-gray-600 mb-2 line-clamp-2">${product.title}</h3>
-      <p class="text-xl text-gray-400 mb-4">$${product.price}</p>
-      <button class="mt-auto bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-400 transition">
-        Add to Cart
-      </button>
-    `;
+    products.forEach(product => {
+      let imgUrl = product.images?.[0]|| 'https://via.placeholder.com/600x400';
 
-    card.querySelector("button").onclick = () => {
-      addToCart(product.id);
-      updateCartCount();
-    };
+      const card = document.createElement("div");
+      card.className = "flex flex-col bg-pink-50 rounded-xl shadow-md p-4 w-72 min-h-[450px]";
+      card.innerHTML = `
+        <img src="${imgUrl}" 
+             draggable="false" 
+             onerror="this.src='https://via.placeholder.com/600x400';" 
+             class="h-40 w-full object-contain rounded-lg mb-3 select-none pointer-events-none" 
+             oncontextmenu="return false;" /> 
+        <h3 class="text-lg font-semibold text-gray-600 mb-2 line-clamp-2">${product.title}</h3>
+        <p class="text-xl text-gray-400 mb-4">$${product.price}</p>
+        <button class="mt-auto bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-400 transition">
+          Add to Cart
+        </button>
+      `;
 
-    productsContainer.appendChild(card);
-  });
+      card.querySelector("button").onclick = () => {
+        addToCart(product.id);
+        updateCartCount();
+      };
+
+      productsContainer.appendChild(card);
+    });
+  } catch (error) {
+    productsContainer.innerHTML = "<p class='col-span-full text-center text-red-500'>Error loading products.</p>";
+  } finally {
+    isFetching = false;
+  }
 }
 
 document.addEventListener("DOMContentLoaded", loadProducts);

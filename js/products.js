@@ -9,42 +9,55 @@ const sortSelect = document.getElementById("sort-select");
 let currentCategory = "all";
 let currentPage = 1;
 let currentSort = "default";
+let isFetching = false;
 const limit = 50;
 
 async function loadProducts() {
-  let products = await fetchProducts({
-    page: currentPage,
-    limit,
-    category: currentCategory
-  });
+  if (isFetching) return;
+  isFetching = true;
 
-  if (currentSort === "price-low") {
-    products.sort((a, b) => a.price - b.price);
-  } else if (currentSort === "price-high") {
-    products.sort((a, b) => b.price - a.price);
-  } else if (currentSort === "name-a-z") {
-    products.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (currentSort === "name-z-a") {
-    products.sort((a, b) => b.title.localeCompare(a.title));
+  productsContainer.innerHTML = "<p class='col-span-full text-center'>Loading...</p>";
+
+  try {
+    let products = await fetchProducts({
+      page: currentPage,
+      limit,
+      category: currentCategory
+    });
+
+    if (currentSort === "price-low") {
+      products.sort((a, b) => a.price - b.price);
+    } else if (currentSort === "price-high") {
+      products.sort((a, b) => b.price - a.price);
+    } else if (currentSort === "name-a-z") {
+      products.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (currentSort === "name-z-a") {
+      products.sort((a, b) => b.title.localeCompare(a.title));
+    }
+
+    displayProducts(products);
+    renderPagination(products.length);
+  } finally {
+    isFetching = false;
   }
-
-  displayProducts(products);
-  renderPagination(products.length);
 }
 
 function displayProducts(products) {
   productsContainer.innerHTML = "";
+  if (products.length === 0) {
+    productsContainer.innerHTML = "<p class='col-span-full text-center'>No products found.</p>";
+    return;
+  }
   products.forEach(product => {
-    const imgUrl = product.images?.[0] || "https://placehold.co/600x400";
+    const imgUrl = product.images?.[0]|| "https://via.placeholder.com/600x400";
     const card = document.createElement("div");
     card.className = "flex flex-col bg-pink-50 rounded-xl shadow-md p-4 w-72 min-h-[450px]";
     card.innerHTML = `
- <img src="${imgUrl}" 
-       draggable="false" 
-       onerror="this.src='https://via.placeholder.com/600x400';" 
-       class="h-40 w-full object-contain rounded-lg mb-3 select-none pointer-events-none" 
-       oncontextmenu="return false;" />
-       
+      <img src="${imgUrl}" 
+           draggable="false" 
+           onerror="this.src='https://via.placeholder.com/600x400';" 
+           class="h-40 w-full object-contain rounded-lg mb-3 select-none pointer-events-none" 
+           oncontextmenu="return false;" />
       <h3 class="text-lg font-semibold text-gray-600 mb-2 line-clamp-2">${product.title}</h3>
       <p class="text-xl text-gray-400 mb-4">$${product.price}</p>
       <button class="mt-auto bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-400 transition">Add to Cart</button>
